@@ -16,7 +16,7 @@ public class Main {
 
     public static void startDialog(Company company) {
         String[] options = new String[]{"Cadastrar funcionário", "Excluir funcionário", "Editar Salário", "Imprimir Salário"};
-        int response = JOptionPane.showOptionDialog(null, "Message", "Title",
+        int response = JOptionPane.showOptionDialog(null, "Escolha a função que deseja fazer", "Interface da compania",
                 JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
                 null, options, options[0]);
 
@@ -90,11 +90,18 @@ public class Main {
         }
         if (response == 3) {
             String dialogResponse = JOptionPane.showInputDialog(null, "Insira do Id do funcioanrio que deseja editar o salário");
-            try {
-                int id = Integer.parseInt(dialogResponse);
-                appendStrToFile("arquivo.txt", "Nome do funcionario: " + company.getNameByID(id) + ", Quantidade de dependentes: " + company.getDependentsLengthByID(id) + ", Bonus que tem direito: " + company.getBonusByID(id) + ", Salário base: " + company.getWageByID(id) + "\n");
-            } catch (Exception err) {
-                JOptionPane.showMessageDialog(null ,err.getMessage());
+            if (Integer.parseInt(dialogResponse) == 0) {
+                for (var i = 0; i < company.getEmployeesList().size(); i++) {
+                    var item = company.getEmployeesList().get(i);
+                    appendStrToFile("arquivo.txt", "Nome do funcionario: " + item.getName() + ", Quantidade de dependentes: " + item.getDependentsLength() + ", Bonus que tem direito: " + item.getBonus() + ", Salário base: " + item.getWage() + "\n");
+                }
+            } else {
+                try {
+                    int id = Integer.parseInt(dialogResponse);
+                    appendStrToFile("arquivo.txt", "Nome do funcionario: " + company.getNameByID(id) + ", Quantidade de dependentes: " + company.getDependentsLengthByID(id) + ", Bonus que tem direito: " + company.getBonusByID(id) + ", Salário base: " + company.getWageByID(id) + "\n");
+                } catch (Exception err) {
+                    JOptionPane.showMessageDialog(null ,err.getMessage());
+                }
             }
         }
     }

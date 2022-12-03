@@ -15,6 +15,10 @@ public class Company {
     this.employeesList.add(employees);
     }
 
+    public List<Employees> getEmployeesList() {
+        return this.employeesList;
+    }
+
     public String getNameByID(int employeesID) {
         for (Employees item : this.employeesList) {
             if (item.getID() == employeesID) {
